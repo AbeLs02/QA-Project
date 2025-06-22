@@ -1,0 +1,70 @@
+@import "tailwindcss";
+:root {
+  --background: img("../public/images/backgroud.png");
+  --foreground: #171717;
+}
+
+
+body {
+  background-image: url("../public/images/backgroud.png");
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 20px;
+  color: #FFFFF0;
+}
+
+ /* header */
+
+ .navbar {
+  display: flex;
+  gap: 3px;
+  line-height: normal;
+ }
+
+ .nav-link {
+  color: #FFFFF0;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: 5px;
+
+}
+.nav-link:hover {
+  background-color: #FFFFF0;
+  color: #111827;
+  transition: width 2s;
+
+}
+
+.new-question {
+  background-color: #111827;
+  color: #FFFFF0;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: 5px;
+
+
+}
+.new-question:hover {
+  background-color: #FFFFF0;
+  color: #111827;
+  
+}
+.auth-btn {
+  background-color: #FFFFFF;
+  color: #111827;
+  margin: 2px;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.auth-btn:hover {
+  background-color: #111827;
+  color: #FFFFFF;
+}
+
+ /* footer */
