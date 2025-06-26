@@ -1,10 +1,9 @@
 "use client"
 import { Layout } from "antd";
-import { Children } from "react";
 const { Content } = Layout;
 
 const contentStyle: React.CSSProperties = {
-  textAlign: 'center',
+    display: "flex",
 };
 
 const ContentComp = ({

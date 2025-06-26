@@ -1,0 +1,22 @@
+.form {
+    width: 100%;
+    text-align: center;
+}
+
+.form-title {
+    padding-bottom: 30px;
+}
+
+
+.form-container {
+    width: 450px;
+    background-color: #fffff0;
+    padding: 30px 20px;
+    border-radius: 20px;
+}
+
+.login-btn {
+    width: 100%;
+    height: 50px;
+    font-weight: bolder;
+}

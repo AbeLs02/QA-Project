@@ -1,0 +1,39 @@
+.primaryButton {
+  background-color: #245AB2;
+  color: #FFFFF0;
+  border: 1px solid #111827;
+  transition: background-color 0.3s ease;
+}
+
+.primaryButton:hover {
+  background: none !important;
+  color: #245AB2 !important;
+  border: 1px solid #245AB2 !important;
+}
+
+.primaryLink {
+  background: none;
+  color: #FFFFF0;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.primaryLink:hover {
+  background-color: #111827 !important;
+  color: #FFFFF0 !important;
+}
+
+.secondaryLink {
+  background: none;
+  color: #111827;
+  font-weight: bolder;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.secondaryLink:hover {
+  border: none;
+  background: none !important;
+  color: #245AB2 !important;
+
+}

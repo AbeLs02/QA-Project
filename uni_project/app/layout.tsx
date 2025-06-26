@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import FooterComp from "./(ui)/components/footer";
-import HeaderComp from "./(ui)/components/header";
-import ContentComp from "./(ui)/components/content";
+import FooterComp from "../components/footer";
+import HeaderComp from "../components/header";
+import ContentComp from "../components/content";
 import { ConfigProvider } from "antd";
 
 
@@ -23,30 +23,11 @@ export default function RootLayout({
                     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 </head>
                 <body>
-                    <ConfigProvider
-                        theme={{
-                            token: {
-                            },
-                            components: {
-                                Typography: {
-                                    
-                                },
-                                Button: {
-                                    colorPrimary: "#FFFFF0",
-                                    primaryColor: "#111827",
-                                    
-                                    colorPrimaryHover: "#111827",
-                                    colorPrimaryBgHover: "#FFFFF0"
-                                }
-                            }
-                        }}
-                    >
                         <HeaderComp />
                         <ContentComp>        
                             {children}
                         </ContentComp>     
                         <FooterComp />
-                    </ConfigProvider>
                 </body>
             </html>
         );

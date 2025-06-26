@@ -1,0 +1,17 @@
+.primaryInput {
+    border: 1px solid #111827;
+    padding: 8px;
+}
+.primaryInput::placeholder {
+    color:#111827b0
+}
+.primaryInput:hover {
+    box-shadow: 0px 0px 7px #1118276b;
+    border: 1px solid #1118276b !important;
+    
+}
+.primaryInput:focus {
+    border: 1px solid #111827;
+    box-shadow: 0px 0px 7px #111827;
+
+}
