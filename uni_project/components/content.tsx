@@ -3,7 +3,7 @@ import { Layout } from "antd";
 const { Content } = Layout;
 
 const contentStyle: React.CSSProperties = {
-    display: "flex",
+
 };
 
 const ContentComp = ({
