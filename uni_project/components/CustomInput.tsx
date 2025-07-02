@@ -2,13 +2,14 @@
 
 import React from "react";
 import { Input } from "antd";
-import type { InputProps } from "antd";
+import type { InputProps, TextAreaProps } from "antd/es/input";
 import styles from "./css/customInput.module.css";
 
 const {TextArea} = Input
-interface CustomInputProps extends InputProps {
-  customVariant?: "primary" | "TextArea";
-}
+
+type CustomInputProps =
+  | ({ customVariant?: "primary" } & InputProps)
+  | ({ customVariant: "TextArea" } & TextAreaProps);
 
 const CustomInput: React.FC<React.PropsWithChildren<CustomInputProps>> = ({
   customVariant = "primary",
@@ -17,10 +18,11 @@ const CustomInput: React.FC<React.PropsWithChildren<CustomInputProps>> = ({
 }) => {
   const inputClass = styles.primaryInput
 
-  return (
-    
-    customVariant === "primary" ? <Input className={`${inputClass} ${className || ""}`} {...rest} /> : <TextArea  className={`${inputClass} ${className || ""}`} {...rest}/>
-  );
+  if (customVariant==="TextArea"){
+    return <TextArea  className={`${inputClass} ${className || ""}`} {...rest as TextAreaProps}/>
+  }
+  return<Input className={`${inputClass} ${className || ""}`} {...rest as InputProps} />
+
 };
 
 export default CustomInput;
