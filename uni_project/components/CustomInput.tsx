@@ -5,22 +5,21 @@ import { Input } from "antd";
 import type { InputProps } from "antd";
 import styles from "./css/customInput.module.css";
 
+const {TextArea} = Input
 interface CustomInputProps extends InputProps {
-  customVariant?: "primary";
+  customVariant?: "primary" | "TextArea";
 }
 
 const CustomInput: React.FC<React.PropsWithChildren<CustomInputProps>> = ({
   customVariant = "primary",
-  children,
   className,
   ...rest
 }) => {
   const inputClass = styles.primaryInput
 
   return (
-    <Input className={`${inputClass} ${className || ""}`} {...rest}>
-      {children}
-    </Input>
+    
+    customVariant === "primary" ? <Input className={`${inputClass} ${className || ""}`} {...rest} /> : <TextArea  className={`${inputClass} ${className || ""}`} {...rest}/>
   );
 };
 
