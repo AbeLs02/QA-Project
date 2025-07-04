@@ -22,7 +22,9 @@
     color: #11182790 !important;
     font-weight: bolder;
 }
-
+.active-order {
+    color: #111827 !important
+}
 .order:hover {
     border-bottom: 2px solid #111827;
     color: #111827 !important;

@@ -4,12 +4,21 @@ import FooterComp from "../components/footer";
 import HeaderComp from "../components/header";
 import ContentComp from "../components/content";
 import { ConfigProvider } from "antd";
+import type { ThemeConfig } from "antd";
 
 
 export const metadata: Metadata = {
     title: "دانشجویار",
     description: "سایت پرسش و پاسخ دانشجویان",
 };
+
+const CustomTheme: ThemeConfig = {
+    token: {
+        colorText: "#FFFFF0",
+        colorTextHeading: "#fffff0",
+        
+    }
+}
 
 export default function RootLayout({
     children,
@@ -23,7 +32,9 @@ export default function RootLayout({
                     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 </head>
                 <body>
-                    <ConfigProvider>
+                    <ConfigProvider
+                        theme={CustomTheme}
+                    >
                         <HeaderComp />
                         <ContentComp>        
                             {children}
