@@ -3,15 +3,20 @@ import "./questions.css"
 import { Row, Col, Typography, Flex } from "antd"
 import CustomButton from "@/components/CustomButton"
 import CustomInput from "@/components/CustomInput"
+import { useSearchParams } from "next/navigation"
 const {Title, Text, Link} = Typography
 
 const Questions = () => {
-
+    const searchParams = useSearchParams()
+    var order_by = searchParams.get("order-by");
+    if (order_by === null){
+        order_by = "newest"
+    }
     return (
         <Row gutter={30}>
             <Col span={6}>
                 <Row className="bg">
-                    <Title level={3}>فیلترها</Title>
+                    <Title level={3} className="title-secondary">فیلترها</Title>
 
                 </Row>
             </Col>
@@ -30,22 +35,22 @@ const Questions = () => {
                     <Col span={24}>
                         <Row>
                             <Col className="order-container" span={24}>
-                                <Link className="order">جدیدترین‌ها</Link>
-                                <Link className="order">بیشترین پاسخ</Link>
-                                <Link className="order">بدون پاسخ‌ها</Link>
+                                <Link href="?order-by=newest" className={`order ${order_by=="newest" ? 'active-order':''}`}>جدیدترین‌ها</Link>
+                                <Link href="?order-by=most-answered" className={`order ${order_by=="most-answered" ? 'active-order':''}`}>بیشترین پاسخ</Link>
+                                <Link href="?order-by=not-answered" className={`order ${order_by=="not-answered" ? 'active-order':''}`}>بدون پاسخ‌ها</Link>
                             </Col>
                         </Row>
                         <Row className="question">
                             <Col span={18}>
                                 <Row gutter={[0, 20]}>
                                     <Col span={24}>
-                                    <Title level={3}>متن سوال</Title>
+                                    <Title level={3} className="title-secondary">متن سوال</Title>
                                     </Col>
                                     <Col span={24}> 
                                         <Text className="chat-tag">tag1</Text>
                                         <Text className="chat-tag">tag2</Text>
                                         <Text className="chat-tag">tag3</Text>
-                                        <Text className="author">توسط <Text className="author-name">saeed</Text> در <Text className="date">121</Text></Text>
+                                        <Text className="title-secondary author">توسط <Text className="title-secondary author-name">saeed</Text> در <Text className="title-secondary date">121</Text></Text>
 
                                     </Col>
                                 </Row>
