@@ -83,13 +83,13 @@ export default function Home() {
                             <Col span={18}>
                                 <Row gutter={[0, 20]}>
                                     <Col span={24}>
-                                    <Title level={3}>متن سوال</Title>
+                                    <Title level={3} className="title-secondary">متن سوال</Title>
                                     </Col>
                                     <Col span={24}> 
                                         <Text className="chat-tag">tag1</Text>
                                         <Text className="chat-tag">tag2</Text>
                                         <Text className="chat-tag">tag3</Text>
-                                        <Text className="author">توسط <Text className="author-name">saeed</Text> در <Text className="date">121</Text></Text>
+                                        <Text className="title-secondary author">توسط <Text className="title-secondary author-name">saeed</Text> در <Text className="title-secondary date">121</Text></Text>
 
                                     </Col>
                                 </Row>
