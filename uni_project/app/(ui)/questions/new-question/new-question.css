@@ -1,0 +1,33 @@
+
+.question-form-container {
+    background-color: #E7F4FF;
+    border-radius: 15px;
+    padding: 30px;
+}
+
+.ques-mark {
+    background-color: #111827;
+    color: #FFFFF0;
+    font-size: large;
+    font-weight: bolder;
+    width: 45px;
+    height: 50px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 15px 15px 15px 0px;
+}
+.title {
+    color: #111827 !important;
+    font-size: 1.3rem;
+    font-weight: bolder;
+}
+.question-form {
+    background-color: #fff;
+    padding: 10px;
+}
+.ant-form-item-label > label {
+    color: #111827 !important   ;
+    font-weight: bold;
+}

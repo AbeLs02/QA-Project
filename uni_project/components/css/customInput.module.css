@@ -2,7 +2,9 @@
     color: #111827;
     border: 1px solid #111827;
     padding: 8px;
+    border-radius: 10px;
 }
+
 .primaryInput::placeholder {
     color:#111827b0
 }
@@ -15,4 +17,41 @@
     border: 1px solid #111827;
     box-shadow: 0px 0px 7px #111827;
 
+}
+
+/* استایل کل باکس Select */
+.selectRoot :global(.ant-select-selector) {
+    border: 1px solid #111827 !important;
+    border-radius: 10px;
+    color: #111827;
+}
+.selectRoot :global(.ant-select-selector):hover {
+    box-shadow: 0px 0px 7px #1118276b;
+    border: 1px solid #1118276b !important;
+}
+
+.selectRoot :global(.ant-select-selection-placeholder) {
+  color: #111827b0 !important;
+}
+
+.selectRoot :global(.ant-select-selection-item) {
+    color: #111827 !important;
+}
+
+.selectDropdown {
+  border: 1px solid #111827;
+  border-radius: 8px;
+  width: 100px;
+}
+
+.selectDropdown :global(.ant-select-item-option-content) {
+  color: #111827;
+  width: 100px;
+}
+
+.selectDropdown :global(.ant-select-item-option-active) {
+}
+
+.selectDropdown :global(.ant-select-item-option-selected) {
+  font-weight: bold;
 }
