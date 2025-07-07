@@ -1,5 +1,5 @@
 
-.form-container {
+.question-form-container {
     background-color: #E7F4FF;
     border-radius: 15px;
     padding: 30px;
@@ -19,10 +19,15 @@
     border-radius: 15px 15px 15px 0px;
 }
 .title {
-    font-size: large;
+    color: #111827 !important;
+    font-size: 1.3rem;
     font-weight: bolder;
 }
-.form {
+.question-form {
     background-color: #fff;
     padding: 10px;
+}
+.ant-form-item-label > label {
+    color: #111827 !important   ;
+    font-weight: bold;
 }
