@@ -21,7 +21,7 @@ const HeaderComp = () => {
                     <Link href="/home" className="nav-link">
                         صفحه اصلی
                     </Link>
-                    <Link href="#" className="nav-link">
+                    <Link href="/questions" className="nav-link">
                         سوالات  
                     </Link> 
                     <Link href="#" className="nav-link">
@@ -30,7 +30,7 @@ const HeaderComp = () => {
                     <Link href="#" className="nav-link">
                         پشتیبانی
                     </Link> 
-                    <Link href="#" className="new-question">
+                    <Link href="/questions/new-question" className="new-question">
                         ثبت سوال جدید
                     </Link>
                 </Col>
