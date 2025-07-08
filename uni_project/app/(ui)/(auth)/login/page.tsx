@@ -9,8 +9,8 @@ const Login = () => {
 
     return (
         <Row justify={"center"} align={"middle"} className="form">
-            <Col className="form-container">
-                <Title level={2} className="form-title">ورود</Title>
+            <Col className="login-form-container">
+                <Title level={2} className="login-form-title">ورود</Title>
                 <Form className="login-form">
                     <Form.Item
                         className="xxx"
