@@ -3,8 +3,7 @@ from taggit.models import Tag
 
 from account.models import User
 from django.contrib.auth import authenticate
-from chat.models import Question, Chat
-
+from chat.models import Question, Chat, Category
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -74,8 +73,14 @@ class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
         fields = "__all__"
+
 class QuestionListSerializer(serializers.ModelSerializer):
     tags = TagSerializer(many=True, read_only=True)
     class Meta:
         model = Question
         fields = ["title", "category", "tags", "description"]
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ["name", "slug"]

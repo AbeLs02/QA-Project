@@ -11,5 +11,6 @@ urlpatterns = [
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("questions/create/", views.QuestionCreateAPIView.as_view(), name="question_create"),
     path("questions/", views.QuestionListAPIView.as_view(), name="questions_list"),
+    path("categories/", views.CategoryListAPIView.as_view(), name="categories_list"),
 
 ]

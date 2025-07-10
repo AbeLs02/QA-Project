@@ -57,3 +57,8 @@ class QuestionListAPIView(generics.ListAPIView):
     permission_classes = [AllowAny]
     queryset = Question.objects.all()
     serializer_class = QuestionListSerializer
+
+class CategoryListAPIView(generics.ListAPIView):
+    permission_classes = [AllowAny]
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
