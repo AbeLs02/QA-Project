@@ -2,7 +2,6 @@
 import { Button, Col, Row, Typography } from "antd";
 import "./home.css"
 import CustomButton from "@/components/CustomButton";
-import Ribbon from "antd/es/badge/Ribbon";
 
 const {Text, Title, Paragraph} = Typography
 export default function Home() {

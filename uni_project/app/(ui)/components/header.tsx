@@ -1,8 +1,10 @@
 "use client"
-import { Col, Row, Layout, Button, Image } from "antd";
+import { Col, Row, Layout, Image } from "antd";
 import React from "react";
 import logo from "@/public/images/logo.png"
 import Link from "next/link";
+import { useAuth } from "@/context/authContext";
+import CustomButton from "@/components/CustomButton";
 const { Header } = Layout;
 
 const headerStyle: React.CSSProperties = {
@@ -11,6 +13,7 @@ const headerStyle: React.CSSProperties = {
 };
 
 const HeaderComp = () => {
+    const {isLoggedIn, user, logout} = useAuth()
     return (
         <Header style={headerStyle}>
             <Row align={"middle"} justify={"center"}>
@@ -36,12 +39,27 @@ const HeaderComp = () => {
                 </Col>
 
                 <Col>
-                    <Link href="/login" className="auth-btn">
-                        ورود
-                    </Link>
-                    <Link href="/register" className="auth-btn">
-                        ثبت نام
-                    </Link>
+                    {
+                        isLoggedIn ? 
+                        <>
+                            <Link href="" className="auth-btn">
+                                {user?.username}
+                            </Link>
+                            <CustomButton customVariant="linkSecondary" onClick={()=>logout()}>
+                                خروج
+                            </CustomButton>
+                        </>
+                            :
+                        <>
+                            <Link href="/login" className="auth-btn">
+                                ورود
+                            </Link>
+                            <Link href="/register" className="auth-btn">
+                                ثبت نام
+                            </Link>
+                        </>
+                    }
+                    
                 </Col>
             </Row>
         </Header>
