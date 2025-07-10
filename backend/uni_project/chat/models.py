@@ -49,7 +49,7 @@ class Chat(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.question
+        return str(self.question)
 
     class Meta:
         ordering = ['-created_at']
