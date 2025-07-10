@@ -1,6 +1,11 @@
 from rest_framework import serializers
+from taggit.models import Tag
+
 from account.models import User
 from django.contrib.auth import authenticate
+from chat.models import Question, Chat
+
+
 
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
@@ -49,3 +54,28 @@ class UserListSerializer(serializers.ModelSerializer):
         model = User
         fields = ["id", "username", "email", "phone", "first_name", "last_name",
                   "career", "date_joined"]
+
+
+
+class QuestionCreateSerializer(serializers.ModelSerializer):
+    tags = serializers.ListField(child=serializers.CharField(), write_only=True)
+    class Meta:
+        model = Question
+        fields = ["title", "category", "tags", "description"]
+
+    def create(self, validated_data):
+        user = self.context['request'].user
+        tags = validated_data.pop("tags", [])
+        question = Question.objects.create(user=user, **validated_data)
+        question.tags.set(tags)
+        Chat.objects.create(question=question)
+        return question
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
+        fields = "__all__"
+class QuestionListSerializer(serializers.ModelSerializer):
+    tags = TagSerializer(many=True, read_only=True)
+    class Meta:
+        model = Question
+        fields = ["title", "category", "tags", "description"]
