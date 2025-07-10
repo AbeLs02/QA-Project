@@ -9,4 +9,7 @@ urlpatterns = [
     path("users/register/", views.RegisterApiView.as_view(), name="register"),
     path("users/login/", views.LoginAPIView.as_view(), name="login"),
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path("questions/create/", views.QuestionCreateAPIView.as_view(), name="question_create"),
+    path("questions/", views.QuestionListAPIView.as_view(), name="questions_list"),
+
 ]
