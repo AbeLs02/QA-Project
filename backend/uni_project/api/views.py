@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from rest_framework import generics
-from rest_framework.permissions import AllowAny
+from rest_framework.authentication import TokenAuthentication, BaseAuthentication, BasicAuthentication
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import RegisterSerializer, LoginSerializer, UserSerializer, UserListSerializer
+from chat.models import Question
+from .serializers import *
 from .services.auth_service import get_tokens_for_user
 
 from account.models import User
@@ -43,3 +45,15 @@ class UserListView(generics.ListAPIView):
     permission_classes = [AllowAny]
     queryset = User.objects.all()
     serializer_class = UserListSerializer
+
+class QuestionCreateAPIView(generics.CreateAPIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [BasicAuthentication]
+
+    queryset = Question.objects.all()
+    serializer_class = QuestionCreateSerializer
+
+class QuestionListAPIView(generics.ListAPIView):
+    permission_classes = [AllowAny]
+    queryset = Question.objects.all()
+    serializer_class = QuestionListSerializer
