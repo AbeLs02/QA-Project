@@ -83,9 +83,10 @@ class TagSerializer(serializers.ModelSerializer):
 
 class QuestionListSerializer(serializers.ModelSerializer):
     tags = TagSerializer(many=True, read_only=True)
+    user = UserSerializer(read_only=True)
     class Meta:
         model = Question
-        fields = ["title", "category", "tags", "description"]
+        fields = ["id", "user", "title", "category", "tags", "description", "created_at"]
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
