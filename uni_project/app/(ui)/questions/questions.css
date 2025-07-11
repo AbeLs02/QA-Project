@@ -33,15 +33,22 @@
 .question {
     background-color: #F5F5F5;
     padding: 30px;
-    /* margin: 20px 0; */
+    margin: 20px 0;
     align-items: center;
     border-radius: 10px;
 }
-
+.info-container {
+    display: flex;
+    align-items: center;
+}
 .chat-tag {
     background-color: #e7e5e585;
     color: #000000;
     border-radius: 5px;
     margin: 5px;
     padding:5px 10px;
+}
+.author-name, .date {
+    font-weight: bold;
+    font-style: italic;
 }

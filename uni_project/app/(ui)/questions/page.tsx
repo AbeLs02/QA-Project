@@ -4,14 +4,52 @@ import { Row, Col, Typography, Flex } from "antd"
 import CustomButton from "@/components/CustomButton"
 import CustomInput from "@/components/CustomInput"
 import { useSearchParams } from "next/navigation"
+import { getAllQuestions } from "@/lib/api"
+import { useEffect, useState } from "react"
 const {Title, Text, Link} = Typography
+interface UserType {
+    id: number;
+    username: string;
+    email: string;
+    phone: string;
+    first_name: string;
+    last_name: string;
+    profile: string;
+    career: string;
+    date_joined: string
+}
+interface TagType {
+    id: number;
+    name: string;
+    slug: string;
+}
+interface QuestionType {
+    id: number;
+    user: UserType;
+    title: string;
+    category: string;
+    tags: TagType[];
+    created_at: string;
 
+}
 const Questions = () => {
+    const [questions, setQuestions] = useState<QuestionType[]>([])
+    const [searchQuery, setSearchQuery] = useState("")
     const searchParams = useSearchParams()
-    var order_by = searchParams.get("order-by");
-    if (order_by === null){
-        order_by = "newest"
+
+    const order_by = searchParams.get("order-by") || "newest"
+
+    useEffect(()=>{
+        const fetchData = async ()=>{
+            const questions = await getAllQuestions(order_by)
+            setQuestions(questions)
+        }
+        fetchData()
+    }, [])
+    const handlerSearchQuery = () => {
+        console.log(searchQuery)
     }
+
     return (
         <Row gutter={30}>
             <Col span={6}>
@@ -25,10 +63,10 @@ const Questions = () => {
                     <Col span={24}>
                         <Row gutter={20}>
                             <Col span={18}>
-                                <CustomInput placeholder="جست و جوی سوال"/>
+                                <CustomInput placeholder="جست و جوی سوال" onChange={(e)=>{setSearchQuery(e.target.value)}}/>
                             </Col>
                             <Col span={6}>
-                                <CustomButton>جست و جو</CustomButton>
+                                <CustomButton onClick={handlerSearchQuery}>جست و جو</CustomButton>
                             </Col>
                         </Row>
                     </Col>
@@ -40,32 +78,40 @@ const Questions = () => {
                                 <Link href="?order-by=not-answered" className={`order ${order_by=="not-answered" ? 'active-order':''}`}>بدون پاسخ‌ها</Link>
                             </Col>
                         </Row>
-                        <Row className="question">
+                        {questions.map((q, index)=>{ 
+                            const dateTime = new Date(q.created_at)
+                            const date = dateTime.toLocaleDateString("fa-IR")
+                            const time = dateTime.toLocaleTimeString("fa-IR")
+                            return (
+                        <Row className="question" key={q.id}>
                             <Col span={18}>
-                                <Row gutter={[0, 20]}>
+                                <Row gutter={[0, 5]}>
                                     <Col span={24}>
-                                    <Title level={3} className="title-secondary">متن سوال</Title>
+                                    <Title level={3} className="title-secondary">{q.title}</Title>
                                     </Col>
-                                    <Col span={24}> 
-                                        <Text className="chat-tag">tag1</Text>
-                                        <Text className="chat-tag">tag2</Text>
-                                        <Text className="chat-tag">tag3</Text>
-                                        <Text className="title-secondary author">توسط <Text className="title-secondary author-name">saeed</Text> در <Text className="title-secondary date">121</Text></Text>
+                                    <Col span={24} className="info-container">
+                                        {
+                                            q.tags.map((t)=>(
+                                                <Text className="chat-tag" key={t.id}>{t.name}</Text>
+                                            ))
+                                        }
+                                        <Text className="title-secondary author">توسط <Text className="title-secondary author-name">{q.user.username}</Text> در <Text className="title-secondary date"> {time} {date}</Text></Text>
 
                                     </Col>
                                 </Row>
-                                    
                             </Col>
                             <Col span={2}>
                                 <Row gutter={[0, 10]}>
                                     <Col span={24}><Text className="view"><Text className="view-count">200</Text> مشاهده</Text></Col>
-                                    <Col span={24}><Text className="message"><Text className="message-count">100</Text> پیام</Text></Col>
+                                    <Col span={24}><Text className="message"><Text className="message-count">{}</Text> پیام</Text></Col>
                                 </Row>
                             </Col>
                             <Col span={4}>
-                                <CustomButton>ثبت پاسخ</CustomButton>
+                                <CustomButton href={`/chat/` + q.id}>ثبت پاسخ</CustomButton>
                             </Col>
                         </Row>
+                         )})
+                        }
                     </Col>
                 </Row>
             </Col>
