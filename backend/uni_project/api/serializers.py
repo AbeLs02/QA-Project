@@ -58,6 +58,7 @@ class UserListSerializer(serializers.ModelSerializer):
 
 class QuestionCreateSerializer(serializers.ModelSerializer):
     tags = serializers.ListField(child=serializers.CharField(), write_only=True)
+    category = serializers.CharField()
     class Meta:
         model = Question
         fields = ["title", "category", "tags", "description"]
@@ -65,7 +66,13 @@ class QuestionCreateSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = self.context['request'].user
         tags = validated_data.pop("tags", [])
-        question = Question.objects.create(user=user, **validated_data)
+        category_slug = validated_data.pop("category", None)
+        try:
+            category = Category.objects.get(slug=category_slug)
+        except Category.DoesNotExist:
+            raise serializers.ValidationError({"category": "دسته‌بندی یافت نشد."})
+
+        question = Question.objects.create(user=user, category=category, **validated_data)
         question.tags.set(tags)
         Chat.objects.create(question=question)
         return question
