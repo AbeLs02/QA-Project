@@ -63,7 +63,7 @@ const Questions = () => {
                     <Col span={24}>
                         <Row gutter={20}>
                             <Col span={18}>
-                                <CustomInput placeholder="جست و جوی سوال" onChange={(e)=>{setSearchQuery(e.target.value)}}/>
+                                <CustomInput placeholder="جست و جوی سوال" onChange={(e: React.ChangeEvent<HTMLInputElement>)=>{setSearchQuery(e.target.value)}}/>
                             </Col>
                             <Col span={6}>
                                 <CustomButton onClick={handlerSearchQuery}>جست و جو</CustomButton>
