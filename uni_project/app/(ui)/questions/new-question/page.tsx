@@ -4,19 +4,47 @@ import { Row, Col, Typography, Form, Input, Select } from "antd";
 import type { SelectProps } from "antd";
 import CustomInput from "@/components/CustomInput";
 import CustomButton from "@/components/CustomButton";
-import { CSSProperties } from "react";
+import { CSSProperties, useEffect, useState } from "react";
+import { addQuestion, getCategories } from "@/lib/api";
 const {Title, Text} = Typography
 const {TextArea} = Input
 const FromItemStyle: CSSProperties = {
     marginBottom: "10px"
 } 
 
+interface Categories {
+    label: string, 
+    value: string
+}
+interface Form {
+    title: string,
+    tags: string,
+    category: string,
+    description: string,
+}
 const NewQuestion = () => {
-    const options: SelectProps['options'] = [
-        {label:"علمی", value:"s"},
-        {label:"آموزشی", value:"ss"},
-        {label:"علمی", value:"sss"},
-    ];
+    
+    const [categories, setCategories] = useState<Categories[]>([])
+
+    useEffect(()=>{
+        const fetchData = async ()=>{
+            const categories_list = await getCategories()
+            const formatted: Categories[] = categories_list.map((cat:{name:string, slug:string}) => ({
+                label: cat.name,
+                value: cat.slug,
+                }));
+            setCategories(formatted);
+        }
+        fetchData()
+    }, [])
+
+    const handlerCreateQuestion = async (values: Form) => {
+        const {title, tags, category, description} = values
+        const tags_list = tags.split(',').map(tag => tag.trim())
+        const token = localStorage.getItem("access")
+        const data = await addQuestion(token, title, category, tags_list, description)
+        console.log(data.data)
+    }
     const handleChange = (value: string[]) => {
         console.log(`selected ${value}`);
     };
@@ -34,7 +62,7 @@ const NewQuestion = () => {
                     <Col span={24}>
                         <Form
                             labelCol={{span:3}}
-                              
+                            onFinish={handlerCreateQuestion}
                         >
                             <Form.Item
                                 name="title"
@@ -48,7 +76,7 @@ const NewQuestion = () => {
                                 style={FromItemStyle}
                                 label="تگ"
                             >
-                                <CustomInput placeholder="تگ‌های چند کلمه ای را با - بچسبانید و با فاصله تگ‌ها را از هم جدا کنید" />
+                                <CustomInput placeholder="تگ‌ها را با comma (,) از هم جدا کنید" />
                             </Form.Item>
                             <Form.Item
                                 name="category"
@@ -58,7 +86,7 @@ const NewQuestion = () => {
                                 <CustomInput
                                     customVariant="Select"
                                     placeholder="دسته بندی مورد نظر را انتخاب کنید"
-                                    options={options}
+                                    options={categories}
                                     onChange={handleChange}
                                 />
                             </Form.Item>
@@ -69,7 +97,7 @@ const NewQuestion = () => {
                             >
                                 <CustomInput customVariant="TextArea" placeholder="توضیحات" />
                             </Form.Item>  
-                            <CustomButton>ثبت</CustomButton>  
+                            <CustomButton htmlType="submit">ثبت</CustomButton>  
                         </Form>
                     </Col>
                 </Row>
