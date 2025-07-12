@@ -29,7 +29,9 @@ interface QuestionType {
     title: string;
     category: string;
     tags: TagType[];
+    chat_id: number;
     created_at: string;
+    message_count: number;
 
 }
 const Questions = () => {
@@ -38,17 +40,18 @@ const Questions = () => {
     const searchParams = useSearchParams()
 
     const order_by = searchParams.get("order-by") || "newest"
+    const category = searchParams.get("category") || ""
+    const page = searchParams.get("page") || ""
+    const query = searchParams.get("query") || ""
 
     useEffect(()=>{
         const fetchData = async ()=>{
-            const questions = await getAllQuestions(order_by)
+            const questions = await getAllQuestions({order_by, category, page, query})
             setQuestions(questions)
+            console.log(questions)
         }
         fetchData()
     }, [])
-    const handlerSearchQuery = () => {
-        console.log(searchQuery)
-    }
 
     return (
         <Row gutter={30}>
@@ -63,10 +66,10 @@ const Questions = () => {
                     <Col span={24}>
                         <Row gutter={20}>
                             <Col span={18}>
-                                <CustomInput placeholder="جست و جوی سوال" onChange={(e: React.ChangeEvent<HTMLInputElement>)=>{setSearchQuery(e.target.value)}}/>
+                                <CustomInput placeholder="جست و جوی سوال" value={query} onChange={(e: React.ChangeEvent<HTMLInputElement>)=>{setSearchQuery(e.target.value)}}/>
                             </Col>
                             <Col span={6}>
-                                <CustomButton onClick={handlerSearchQuery}>جست و جو</CustomButton>
+                                <CustomButton href={`?query=${searchQuery}`}>جست و جو</CustomButton>
                             </Col>
                         </Row>
                     </Col>
@@ -84,7 +87,7 @@ const Questions = () => {
                             const time = dateTime.toLocaleTimeString("fa-IR")
                             return (
                         <Row className="question" key={q.id}>
-                            <Col span={18}>
+                            <Col span={17}>
                                 <Row gutter={[0, 5]}>
                                     <Col span={24}>
                                     <Title level={3} className="title-secondary">{q.title}</Title>
@@ -100,14 +103,14 @@ const Questions = () => {
                                     </Col>
                                 </Row>
                             </Col>
-                            <Col span={2}>
+                            <Col span={3}>
                                 <Row gutter={[0, 10]}>
                                     <Col span={24}><Text className="view"><Text className="view-count">200</Text> مشاهده</Text></Col>
-                                    <Col span={24}><Text className="message"><Text className="message-count">{}</Text> پیام</Text></Col>
+                                    <Col span={24}><Text className="message"><Text className="message-count">{q.message_count}</Text> پیام</Text></Col>
                                 </Row>
                             </Col>
                             <Col span={4}>
-                                <CustomButton href={`/chat/` + q.id}>ثبت پاسخ</CustomButton>
+                                <CustomButton href={`/chat/` + q.chat_id}>ثبت پاسخ</CustomButton>
                             </Col>
                         </Row>
                          )})

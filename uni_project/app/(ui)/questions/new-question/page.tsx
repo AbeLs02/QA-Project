@@ -6,6 +6,7 @@ import CustomInput from "@/components/CustomInput";
 import CustomButton from "@/components/CustomButton";
 import { CSSProperties, useEffect, useState } from "react";
 import { addQuestion, getCategories } from "@/lib/api";
+import { useRouter } from "next/navigation";
 const {Title, Text} = Typography
 const {TextArea} = Input
 const FromItemStyle: CSSProperties = {
@@ -23,7 +24,7 @@ interface Form {
     description: string,
 }
 const NewQuestion = () => {
-    
+    const router = useRouter()
     const [categories, setCategories] = useState<Categories[]>([])
 
     useEffect(()=>{
@@ -43,7 +44,8 @@ const NewQuestion = () => {
         const tags_list = tags.split(',').map(tag => tag.trim())
         const token = localStorage.getItem("access")
         const data = await addQuestion(token, title, category, tags_list, description)
-        console.log(data.data)
+        console.log(data)
+        router.replace("/chat/"+data.chat_id)
     }
     const handleChange = (value: string[]) => {
         console.log(`selected ${value}`);

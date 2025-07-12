@@ -2,9 +2,59 @@
 import { Button, Col, Row, Typography } from "antd";
 import "./home.css"
 import CustomButton from "@/components/CustomButton";
+import { useEffect, useState } from "react";
+import { getAllQuestions, getCategories } from "@/lib/api";
 
 const {Text, Title, Paragraph} = Typography
+
+interface CategoryType {
+    id: number;
+    name: string;
+    slug: string;
+}
+interface UserType {
+    id: number;
+    username: string;
+    email: string;
+    phone: string;
+    first_name: string;
+    last_name: string;
+    profile: string;
+    career: string;
+    date_joined: string
+}
+
+
+interface TagType {
+    id: number;
+    name: string;
+    slug: string;
+}
+interface QuestionType {
+    id: number;
+    user: UserType;
+    title: string;
+    description: string;
+    category: CategoryType;
+    tags: TagType[];
+    chat_id: number;
+    message_count: number
+    created_at: string;
+
+}
 export default function Home() {
+    const [categories, setCategories] = useState<CategoryType[]>()
+    const [hotest, setHotest] = useState<QuestionType[]>([])
+
+    useEffect(()=>{
+        const fetchData = async ()=>{
+            const cats = await getCategories()
+            const data = await getAllQuestions({order_by:"most-answered", count: 3})
+            setCategories(cats)
+            setHotest(data)
+        }
+        fetchData()
+    }, [])
     return (
         <Row justify={"center"} gutter={[0, 30]}>
             <Col className="about-site" span={22}>
@@ -43,33 +93,22 @@ export default function Home() {
                         <Paragraph className="text make-question-txt">
                             اولین سوالت رو بپرسی
                         </Paragraph>
-                        <CustomButton href="#">ثبت سوال</CustomButton>
+                        <CustomButton href="/questions/new-question">ثبت سوال</CustomButton>
                     </Col>
                 </Row>
             </Col>
             <Col className="topics" sm={16} xs={20}>
                 <Row>
-                    <Title level={2}>تاپیک ها</Title>
+                    <Title level={2} className="title-secondary">دسته بندی ها</Title>
                 </Row>
                 <Row gutter={[10, 10]} justify={"center"}>
-                    <Col sm={11} xs={23}>
-                        <Button className="topic-btn">اداری</Button>
-                    </Col>
-                    <Col sm={11} xs={23}>
-                        <Button className="topic-btn">آموزشی</Button>
-                    </Col>
-                    <Col sm={11} xs={23}>
-                        <Button className="topic-btn">فنی مهندسی</Button>
-                    </Col>
-                    <Col sm={11} xs={23}>
-                        <Button className="topic-btn">علوم پایه</Button>
-                    </Col>
-                    <Col sm={11} xs={23}>
-                        <Button className="topic-btn"></Button>
-                    </Col>
-                    <Col sm={11} xs={23}>
-                        <Button className="topic-btn"></Button>
-                    </Col>
+                    {
+                        categories?.map((c)=>(
+                            <Col sm={11} xs={23} key={c.id}>
+                                <Button className="topic-btn" href={`/questions/?category=${c.slug}`}>{c.name}</Button>
+                            </Col>
+                        ))
+                    }
                 </Row>
             </Col>
             <Col className="top-chats" span={22}>
@@ -77,33 +116,42 @@ export default function Home() {
                     <Title level={2}>داغترین چت ها</Title>
                 </Row>
                 <Row>
-                    <Col span={24}>
-                        <Row className="question">
-                            <Col span={18}>
-                                <Row gutter={[0, 20]}>
+                    <Col span={24}>{
+                            hotest.map((q)=>{ 
+                                const dateTime = new Date(q.created_at)
+                                const date = dateTime.toLocaleDateString("fa-IR")
+                                const time = dateTime.toLocaleTimeString("fa-IR")
+                                return(
+                        <Row className="question" key={q.id}>
+                            <Col span={18}>             
+                                <Row gutter={[0, 10]}> 
                                     <Col span={24}>
-                                    <Title level={3} className="title-secondary">متن سوال</Title>
+                                    <Title level={3} className="title-secondary">{q.title}</Title>
                                     </Col>
-                                    <Col span={24}> 
-                                        <Text className="chat-tag">tag1</Text>
-                                        <Text className="chat-tag">tag2</Text>
-                                        <Text className="chat-tag">tag3</Text>
-                                        <Text className="title-secondary author">توسط <Text className="title-secondary author-name">saeed</Text> در <Text className="title-secondary date">121</Text></Text>
+                                    <Col span={24} className="tags-container"> 
+                                        {
+                                            q?.tags.map((t)=>(
+                                            <Text className="chat-tag" key={t.id}>{t.name}</Text>
+                                            ))
+                                        }
+                                        <Text className="title-secondary author">توسط <Text className="title-secondary author-name">{q.user.username}</Text> در <Text className="title-secondary date">{time} {date}</Text></Text>
 
                                     </Col>
                                 </Row>
-                                    
+                                     
                             </Col>
                             <Col span={2}>
                                 <Row gutter={[0, 10]}>
-                                    <Col span={24}><Text className="view"><Text className="view-count">200</Text> مشاهده</Text></Col>
-                                    <Col span={24}><Text className="message"><Text className="message-count">100</Text> پیام</Text></Col>
+                                    <Col span={24}><Text className="view title-secondary"><Text className="view-count title-secondary">200</Text> مشاهده</Text></Col>
+                                    <Col span={24}><Text className="message title-secondary"><Text className="message-count title-secondary">{q.message_count}</Text> پیام</Text></Col>
                                 </Row>
                             </Col>
                             <Col span={4}>
-                                <CustomButton>ثبت پاسخ</CustomButton>
+                                <CustomButton href={`/chat/` + q.chat_id}>ثبت پاسخ</CustomButton>
                             </Col>
                         </Row>
+                        )})
+                        }
                     </Col>
                 </Row>
             </Col>
