@@ -12,5 +12,7 @@ urlpatterns = [
     path("questions/create/", views.QuestionCreateAPIView.as_view(), name="question_create"),
     path("questions/", views.QuestionListAPIView.as_view(), name="questions_list"),
     path("categories/", views.CategoryListAPIView.as_view(), name="categories_list"),
+    path("chat/<pk>", views.ChatAPIView.as_view(), name="chat_by_id"),
+    # path("messages/create/", views.MessageCreateAPIView.as_view(), name="chats_list"),
 
 ]

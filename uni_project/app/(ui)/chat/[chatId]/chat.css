@@ -39,7 +39,20 @@
     border: 1px solid #6B7280;
     padding: 10px;
     border-radius: 10px;
-    max-height: 450px;
+    overflow: hidden;
+
+}
+.message-container{
+    overflow-y: auto !important;
+    height: 400px;
+    overflow: hidden;
+}
+.message-input-container {
+    margin-top: 10px;
+    padding: 5px 10px;
+    border: 1px solid #000;
+    border-radius: 10px;
+
 }
 .profile {
     width: 50px;
@@ -58,6 +71,16 @@
     color: #111827;
     max-width: 70%;
 }
+.message-own h5 {
+    color: #111827;
+}
+.message-own span {
+    color: #111827;
+    font-style: italic;
+}
+.message-other span {
+    font-style: italic;
+}
 .message-other {
     direction: rtl;
     background-color: #11182784;
@@ -67,19 +90,32 @@
     margin: 3px 5px;
     color: #FFFFFF;
     max-width: 70%;
+}
 
+.message-other, .message-own {
+    display: flex;
+    flex-direction: column;
 }
 .other {
     direction: ltr;
 }
 
-.message-input-container {
-    margin-top: 10px;
-    padding: 5px 10px;
-    border: 1px solid #000;
-    border-radius: 10px;
 
-}
 .message-input {
     color: #111827 ;
+}
+
+
+.ques-tags-container {
+    display: flex;
+    gap: 3px;
+
+}
+.no-message {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.no-message h3 {
+    color: #111827;
 }

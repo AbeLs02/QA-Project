@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     "corsheaders",
     "chat.apps.ChatConfig",
-    "taggit"
+    "taggit",
+    "channels"
 
 ]
 
@@ -152,3 +153,14 @@ CORS_ALLOW_ALL_ORIGINS = True
 # CORS_ALLOWED_ORIGINS = [
 #     'http://localhost:8000',
 # ]
+
+ASGI_APPLICATION = "uni_project.asgi.application"
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}

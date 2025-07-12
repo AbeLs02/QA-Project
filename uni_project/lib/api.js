@@ -59,12 +59,29 @@ export const addQuestion = async (token, title, category, tags, description) => 
   return response.data
 }
 
-export const getAllQuestions = async (order) => {
-  const response = await API.get('questions/', {order})
+export const getAllQuestions = async ({order_by="newest", count=0, category="", page="", query=""}={}) => {
+  console.log(order_by)
+  console.log(count)
+  console.log(category)
+  const response = await API.get('questions/', {
+    params: {
+      'order_by': order_by,
+      'count': count,
+      'category': category,
+      'page': page,
+      'query': query,
+    }
+  })
+  console.log(response.data)
   return response.data
 }
 
 export const getCategories = async () => {
   const res = await API.get('categories/')
+  return res.data
+}
+
+export const getChat = async (chatId) => {
+  const res = await API.get(`chat/${chatId}`)
   return res.data
 }

@@ -3,7 +3,7 @@ from .models import *
 
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
-    list_display = ["user", "title", "created_at", "is_active"]
+    list_display = ["id", "user", "title", "created_at", "category", "is_active"]
     list_editable = ["is_active"]
 
 class MessageInline(admin.TabularInline):
@@ -12,7 +12,7 @@ class MessageInline(admin.TabularInline):
 
 @admin.register(Chat)
 class ChatAdmin(admin.ModelAdmin):
-    list_display = ["question", "is_active"]
+    list_display = ["id", "question", "is_active"]
     inlines = [MessageInline]
 
 @admin.register(Category)

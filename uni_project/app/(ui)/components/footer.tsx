@@ -12,10 +12,14 @@ const footerStyle: React.CSSProperties = {
 const FooterComp = () => {
     return (
         <Footer style={footerStyle}>
-            <Col>
-                <Row justify={"center"}>footer</Row>
-                <Row justify={"center"}>© 2025 All rights reserved. Daneshjooyar</Row>
-            </Col>
+            <Row justify={"center"}>
+                <Col span={24}>
+                    <Row justify={"center"}>footer</Row>
+                </Col>
+                <Col>
+                    © 2025 All rights reserved. Daneshjooyar
+                </Col>
+            </Row>
         </Footer>
     )
 }

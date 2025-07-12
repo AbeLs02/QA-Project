@@ -41,3 +41,17 @@
     margin: 5px;
     padding:5px 10px;
 }
+.tags-container {
+    display: flex;
+    align-items: center;
+}
+.author::before{
+    margin-right: 10px;
+    content: "👤";
+}
+.view::before{
+    content: "👁️";
+}
+.message::before{
+    content: "🗨️";
+}
