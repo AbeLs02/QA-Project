@@ -11,7 +11,7 @@
 * 📊 سیستم امتیازدهی به پاسخ‌ها (در نسخه‌های آینده)
 
  ## 🛠 تکنولوژی‌های استفاده‌شده (Tech Stack)
-* Frontend: Next.js
+* Frontend: Next.js / TypeScript
 * Backend: Django
 * API: DRF
 * Database: PostgreSQL
