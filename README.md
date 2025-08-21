@@ -13,6 +13,7 @@
  ## 🛠 تکنولوژی‌های استفاده‌شده (Tech Stack)
 * Frontend: Next.js
 * Backend: Django
+* API: DRF
 * Database: PostgreSQL
 * Real-time: WebSocket / Django Channels / redis
 * Authentication: JWT / AuthContext
@@ -34,6 +35,13 @@
   ``` daphne uni_project.asgi:application ```
 
 ## 📷 پیش‌نمایش (Screenshots / Demo)
+<img width="1920" height="1080" alt="Screenshot from 2025-08-21 11-29-37" src="https://github.com/user-attachments/assets/9286bd80-c01e-4901-a58a-9078c92f1139" />
+
+<img width="1920" height="1080" alt="Screenshot from 2025-08-21 11-29-50" src="https://github.com/user-attachments/assets/2669c867-a2f0-4088-a0c9-6316c9ed3d1b" />
+
+<img width="1920" height="1080" alt="Screenshot from 2025-08-21 11-36-00" src="https://github.com/user-attachments/assets/689f19f1-0912-4b37-8c9b-6c12b4fef801" />
+
+<img width="1920" height="1080" alt="Screenshot from 2025-08-21 11-29-56" src="https://github.com/user-attachments/assets/2d9b5205-a0c8-47cf-98ca-51fcbade49e1" />
 
 
 ### 📜 مجوز (License)
